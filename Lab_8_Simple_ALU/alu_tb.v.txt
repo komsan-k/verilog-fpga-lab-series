@@ -1,0 +1,32 @@
+module alu_tb;
+    reg [3:0] A, B;
+    reg [2:0] opcode;
+    wire [3:0] result;
+    wire zero;
+
+    alu_4bit uut (
+        .A(A), .B(B),
+        .opcode(opcode),
+        .result(result),
+        .zero(zero)
+    );
+
+    initial begin
+        $display("A    B    OPC | RESULT ZERO");
+        $monitor("%b %b  %b   |  %b     %b", A, B, opcode, result, zero);
+
+        A = 4'b0011; B = 4'b0001;
+
+        opcode = 3'b000; #10; // ADD
+        opcode = 3'b001; #10; // SUB
+        opcode = 3'b010; #10; // AND
+        opcode = 3'b011; #10; // OR
+        opcode = 3'b100; #10; // XOR
+        opcode = 3'b101; #10; // NOT
+        opcode = 3'b110; #10; // Shift Left
+        opcode = 3'b111; #10; // Shift Right
+
+        $finish;
+    end
+endmodule
+
