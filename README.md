@@ -3,6 +3,12 @@
 This repository contains a structured set of laboratory exercises designed to support hands-on learning in Verilog HDL and FPGA-based digital design. These labs align with introductory-to-intermediate level coursework and are compatible with development tools like Xilinx Vivado and boards such as the Nexys A7.
 
 ---
+## Objectives
+
+- Develop hands-on skills in Verilog HDL and FPGA-based circuit design.
+- Use Xilinx Vivado and Nexys A7 boards for implementing digital logic systems.
+- Apply combinational and sequential design principles in practical lab experiments.
+---
 
 ## Lab Index
 
