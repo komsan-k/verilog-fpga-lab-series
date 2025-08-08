@@ -10,7 +10,7 @@ This repository contains a structured set of laboratory exercises designed to su
 - Apply combinational and sequential design principles in practical lab experiments.
 ---
 
-## Lab Index
+## Lab List
 
 | Lab No. | Title                                  |
 |--------:|-----------------------------------------|
