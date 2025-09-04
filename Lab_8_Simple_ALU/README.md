@@ -124,7 +124,6 @@ All operations were verified using Vivado waveform viewer and matched expected b
 2. Extend the ALU to 8-bit width.
 3. Implement increment and decrement operations.
 4. Use a parameterized opcode width and input size.
-5. Design a register file to connect to the ALU inputs and outputs.
 
 ## 7. Conclusion
 
