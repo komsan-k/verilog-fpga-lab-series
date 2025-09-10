@@ -1,5 +1,5 @@
 
-# Lab 10: FSM Design for Serial Adder
+# Lab 12: FSM Design for Serial Adder
 
 ## 1. Lab Objective
 
