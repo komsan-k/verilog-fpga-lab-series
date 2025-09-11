@@ -118,13 +118,45 @@ set_property IOSTANDARD LVCMOS33 [get_ports rst]
 | 120       | 001 (Green)    |
 
 ## 8. Exercises
+Use [Wokwi](https://wokwi.com) to implement and simulate the **Traffic Light Controller**.
 
+---
+
+## Instructions
+
+1. **Model the Controller in Verilog**  
+   - Define states for Red, Yellow, and Green.  
+   - Use a state machine to control transitions.  
+
+2. **Connect LEDs to Represent the Traffic Lights**  
+   - Red LED → Stop  
+   - Yellow LED → Wait  
+   - Green LED → Go  
+
+3. **Use a Clock Generator**  
+   - Drive the state transitions using the hidden `wokwi-clock-generator`.  
+   - Adjust the frequency to simulate realistic light changes.  
+
+4. **Verify the Simulation**  
+   - Observe the LED sequence (Red → Green → Yellow → Red).  
+   - Check timing and correctness using Wokwi’s simulation environment.  
+
+---
+
+## ✅ Expected Outcome
+- A working **Traffic Light Controller** that cycles through Red, Green, and Yellow LEDs automatically.  
+- Correct timing between transitions as defined by your Verilog state machine.  
+
+---
+
+
+<!--
 1. Modify FSM for two-way intersection (Main and Side road).
 2. Add pedestrian walk signal with button interrupt.
 3. Use 1 kHz input clock with a counter-based divider for 1 Hz tick.
 4. Add buzzer output for pedestrian crossing alert.
 5. Display countdown on 7-segment display for each light.
-
+-->
 ## 9. Conclusion
 
 This lab demonstrated the implementation of a finite state machine for traffic light control using Verilog. Students practiced state encoding, timing control, and FPGA pin mapping for real-world interfacing.
