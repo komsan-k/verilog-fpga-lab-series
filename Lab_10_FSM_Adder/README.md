@@ -153,7 +153,7 @@ endmodule
 
 1. Modify the FSM to support 8-bit serial addition.
 2. Add carry-out as a separate output from the most significant bit.
-<-- 3. Add a ready signal to prevent multiple triggers of the FSM while busy.
+<!-- 3. Add a ready signal to prevent multiple triggers of the FSM while busy.
 4. Convert the FSM from Mealy to Moore implementation and compare.
 5. Implement the serial adder using shift registers and a single full adder module. -->
 
