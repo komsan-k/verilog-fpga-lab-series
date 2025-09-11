@@ -120,7 +120,7 @@ set_property IOSTANDARD LVCMOS33 [get_ports rst]
 ## 8. Exercises
 Use [Wokwi](https://wokwi.com) to implement and simulate the **Traffic Light Controller**.
 
-# Instructions
+### Instructions
 
 1. **Model the Controller in Verilog**  
    - Define states for Red, Yellow, and Green.  
