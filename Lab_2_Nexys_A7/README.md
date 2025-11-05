@@ -85,11 +85,11 @@ Create a file named `led_blinker.xdc`:
 
 ```tcl
 ## Clock signal
-set_property PACKAGE_PIN W5 [get_ports clk]
+set_property PACKAGE_PIN E3 [get_ports clk]
 set_property IOSTANDARD LVCMOS33 [get_ports clk]
 
 ## LED output
-set_property PACKAGE_PIN U16 [get_ports led]
+set_property PACKAGE_PIN H17 [get_ports led]
 set_property IOSTANDARD LVCMOS33 [get_ports led]
 ```
 
