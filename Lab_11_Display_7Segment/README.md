@@ -132,10 +132,10 @@ endmodule
 
 ## 4. FPGA Pin Mapping (Nexys A7)
 
-- `clk`: W5 (100 MHz system clock)
-- `rst`: Connect to push button (e.g., T18)
-- `seg[6:0]`: AE26, AC26, AB26, AB25, AA26, Y25, Y26
-- `an[3:0]`: W22, V22, U21, U22
+- `clk`: E3 (100 MHz system clock)
+- `rst`: Connect to push button (e.g., C12)
+- `seg[6:0]`: L18, T11, P15, K13, K16, R10, T10
+- `an[3:0]`: J14, T9, J18, J17
 
 ## 5. Simulation and Results
 
