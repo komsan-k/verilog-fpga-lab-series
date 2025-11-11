@@ -152,7 +152,7 @@ endmodule
 2. Design an 8-bit multiplier using a hierarchical approach.
 3. Implement a pipelined multiplier and compare performance.
 4. Simulate all A × B combinations for A,B ∈ [0, 15].
-5. Compare resource usage between combinational and sequential designs. -->
+5. Compare resource usage between combinational and sequential designs. 
 
 ## 7. Conclusion
 
