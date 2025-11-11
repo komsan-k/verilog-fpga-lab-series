@@ -33,8 +33,11 @@ module traffic_light_fsm (
     input rst,
     output reg [2:0] lights  // {Red, Yellow, Green}
 );
-    typedef enum reg [1:0] {S0, S1, S2} state_t;
-    state_t current_state, next_state;
+    localparam S0 = 2'b00,   // Green
+               S1 = 2'b01,   // Yellow
+               S2 = 2'b10;   // Red
+
+    reg [1:0] current_state, next_state;
     reg [3:0] timer;
 
     always @(posedge clk or posedge rst) begin
