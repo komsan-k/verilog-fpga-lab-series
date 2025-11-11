@@ -147,8 +147,7 @@ endmodule
 - Both implementations were verified using waveform inspection and match expected results.
 
 ## 6. Exercises
-1. Design an 8-bit multiplier using a hierarchical approach.
-<!--
+
 1. Extend the multiplier to handle signed numbers using two's complement.
 2. Design an 8-bit multiplier using a hierarchical approach.
 3. Implement a pipelined multiplier and compare performance.
