@@ -64,7 +64,7 @@ module seq_multiplier_4bit (
             multiplier = multiplier >> 1;
             count = count + 1;
             if (count == 4) begin
-                product <= temp;
+                product <= temp >> 1;
                 done <= 1;
             end
         end
