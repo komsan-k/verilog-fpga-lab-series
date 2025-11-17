@@ -21,9 +21,40 @@ Recommended file structure:
 
 You already have `traffic_light_fsm.v`. Below is an example `clock_divider` and `top_traffic_ped.v`.
 
+## 3. Traffic Light FSM
+```verilog
+module clock_divider (
+    input  wire clk,        // 100 MHz clock input
+    input  wire rst,        // active-high reset
+    output reg tick         // 1 Hz tick output
+);
+
+    // Count from 0 to 99,999,999 (100 million cycles)
+    reg [31:0] counter;
+
+    always @(posedge clk or posedge rst) begin
+        if (rst) begin
+            counter <= 0;
+            tick    <= 0;
+        end 
+        else begin
+            if (counter == 100_000_000 - 1) begin
+                counter <= 0;
+                tick    <= 1;   // generate 1-cycle pulse
+            end 
+            else begin
+                counter <= counter + 1;
+                tick    <= 0;
+            end
+        end
+    end
+
+endmodule
+```
+
 ---
 
-## 3. Clock Divider (100 MHz to ~1 Hz)
+## 4. Clock Divider (100 MHz to ~1 Hz)
 
 ```verilog
 // clock_divider.v
@@ -58,7 +89,7 @@ endmodule
 
 ---
 
-## 4. Top-Level Example Module
+## 5. Top-Level Example Module
 
 This top-level module:
 
@@ -107,14 +138,12 @@ module top_traffic_ped (
 endmodule
 ```
 
-> Note: If you prefer, you can keep `traffic_light_fsm` clocked by `clk_100mhz` and feed `tick_1hz` into an internal enable/timer instead. For this lab, using `tick_1hz` directly as the FSM clock is simpler and easier to observe on hardware.
-
 ---
 
-## 5. Hardware Mapping (Example)
+## 6. Hardware Mapping (Example)
 
-In your XDC/constraints file, map signals to physical FPGA pins, for example (Basys 3-style, **adapt to your board**):
-
+In your XDC file, map signals to physical FPGA pins:
+<!---
 - `clk_100mhz` → 100 MHz clock pin (e.g., `W5`)  
 - `rst_btn`    → reset push button (e.g., `U18`)  
 - `ped_btn`    → another push button (e.g., `T18`)  
@@ -124,35 +153,7 @@ In your XDC/constraints file, map signals to physical FPGA pins, for example (Ba
 - `led_ped` → `LED3` (Pedestrian WALK)
 
 Adjust pin names and locations according to your board’s user manual.
-
----
-
-## 6. Implementation Steps (Vivado Example)
-
-1. **Create Project**
-   - Open Vivado and create a new RTL project.
-   - Add source files:
-     - `clock_divider.v`
-     - `traffic_light_fsm.v`
-     - `top_traffic_ped.v`
-   - Add or create the XDC constraints file and assign pins.
-
-2. **Set Top Module**
-   - Set `top_traffic_ped` as the top module.
-
-3. **Run Synthesis**
-   - Run *Synthesis*.
-   - Fix any syntax or pin assignment errors if they appear.
-
-4. **Run Implementation & Bitstream**
-   - Run *Implementation*.
-   - Generate the Bitstream.
-
-5. **Program the FPGA**
-   - Open *Hardware Manager*.
-   - Connect to the board.
-   - Program the FPGA with the generated bitstream.
-
+--->
 ---
 
 ## 7. On-Board Test Procedure
@@ -185,16 +186,4 @@ Adjust pin names and locations according to your board’s user manual.
      - Timer should restart,
      - Pedestrian request cleared.
 
----
 
-## 8. Optional Extensions
-
-If time allows, students can extend the design to:
-
-- Add a **separate pedestrian RED LED**.
-- Display the **remaining WALK time** on a 7-segment display.
-- Add a **night mode** where GREEN time is longer and pedestrian requests are served differently.
-
----
-
-Generated as a lab-ready README for FPGA implementation of a traffic light controller with pedestrian crossing.
