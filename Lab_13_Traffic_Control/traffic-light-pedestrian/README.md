@@ -213,7 +213,7 @@ endmodule
 
 ---
 
-## 6. Hardware Mapping (Example)
+## 6. Hardware Mapping 
 
 In your XDC file, map signals to physical FPGA pins:
 <!---
