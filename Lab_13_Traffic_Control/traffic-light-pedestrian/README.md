@@ -23,30 +23,103 @@ You already have `traffic_light_fsm.v`. Below is an example `clock_divider` and 
 
 ## 3. Traffic Light FSM
 ```verilog
-module clock_divider (
-    input  wire clk,        // 100 MHz clock input
-    input  wire rst,        // active-high reset
-    output reg tick         // 1 Hz tick output
+module traffic_light_fsm (
+    input  clk,
+    input  rst,
+    input  ped_btn,          // pedestrian request button
+    output reg [2:0] lights, // {Red, Yellow, Green} for cars
+    output reg       ped_walk // 1 = WALK, 0 = DON'T WALK
 );
 
-    // Count from 0 to 99,999,999 (100 million cycles)
-    reg [31:0] counter;
+    // State encoding
+    localparam S_GREEN = 2'b00,  // Cars Green
+               S_YELL  = 2'b01,  // Cars Yellow
+               S_RED   = 2'b10,  // All Red (transition)
+               S_PED   = 2'b11;  // Pedestrian Walk (cars red)
 
+    reg [1:0] current_state, next_state;
+    reg [3:0] timer;
+    reg       ped_req;            // latched pedestrian request
+
+    // Sequential block: state, timer, and ped_req
     always @(posedge clk or posedge rst) begin
         if (rst) begin
-            counter <= 0;
-            tick    <= 0;
-        end 
-        else begin
-            if (counter == 100_000_000 - 1) begin
-                counter <= 0;
-                tick    <= 1;   // generate 1-cycle pulse
-            end 
-            else begin
-                counter <= counter + 1;
-                tick    <= 0;
+            current_state <= S_GREEN;
+            timer         <= 0;
+            ped_req       <= 1'b0;
+        end else begin
+            // Latch pedestrian request whenever button is pressed
+            if (ped_btn)
+                ped_req <= 1'b1;
+
+            if (timer == 0) begin
+                current_state <= next_state;
+
+                // Set duration for next_state (in ticks)
+                case (next_state)
+                    S_GREEN: timer <= 5; // e.g., 5 ticks of green
+                    S_YELL : timer <= 2; // 2 ticks of yellow
+                    S_RED  : timer <= 2; // 2 ticks all-red clearance
+                    S_PED  : timer <= 5; // 5 ticks of pedestrian walk
+                    default: timer <= 0;
+                endcase
+
+                // When we enter pedestrian state, clear request
+                if (next_state == S_PED)
+                    ped_req <= 1'b0;
+
+            end else begin
+                timer <= timer - 1;
             end
         end
+    end
+
+    // Combinational block: next_state + outputs
+    always @(*) begin
+        // Default outputs
+        lights    = 3'b000;
+        ped_walk  = 1'b0;
+        next_state = S_GREEN; // default to avoid latches
+
+        case (current_state)
+            // Cars GREEN, pedestrians DON'T WALK
+            S_GREEN: begin
+                lights     = 3'b001; // Green
+                ped_walk   = 1'b0;   // Don't walk
+                next_state = S_YELL;
+            end
+
+            // Cars YELLOW, pedestrians DON'T WALK
+            S_YELL: begin
+                lights     = 3'b010; // Yellow
+                ped_walk   = 1'b0;
+                next_state = S_RED;
+            end
+
+            // All RED: either go to PED (if requested) or GREEN
+            S_RED: begin
+                lights   = 3'b100; // Red
+                ped_walk = 1'b0;
+
+                if (ped_req)
+                    next_state = S_PED;   // serve pedestrians
+                else
+                    next_state = S_GREEN; // back to car green
+            end
+
+            // Pedestrian WALK: cars RED, pedestrians WALK
+            S_PED: begin
+                lights     = 3'b100; // Cars stay red
+                ped_walk   = 1'b1;   // WALK signal
+                next_state = S_GREEN;
+            end
+
+            default: begin
+                lights     = 3'b000;
+                ped_walk   = 1'b0;
+                next_state = S_GREEN;
+            end
+        endcase
     end
 
 endmodule
