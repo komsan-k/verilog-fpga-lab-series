@@ -241,45 +241,8 @@ endmodule
 
 ---
 
-## 4. Nexys A7 Pin Mapping (XDC Summary)
 
-We use:
-
-- 100 MHz system clock: `clk` at pin **E3**
-- Reset button: center button **BTNC** at pin **N17**
-- 7-segment segments: **CA–CG** at pins T10, R10, K16, K13, P15, T11, L18
-- 7-segment anodes: **AN[0–3]** at pins J17, J18, T9, J14
-
-Full XDC file is provided as: `NexysA7_Stopwatch.xdc`.
-
----
-
-## 5. Implementation Steps (Vivado)
-
-1. **Create Project**
-   - New RTL project → Add sources:
-     - `clock_divider_100hz.v`
-     - `stopwatch_counter.v`
-     - `seg_decoder.v`
-     - `mux3_display.v`
-     - `top_stopwatch.v`
-   - Add constraint file: `NexysA7_Stopwatch.xdc`.
-
-2. **Set Top Module**
-   - Set `top_stopwatch` as the top module.
-
-3. **Run Synthesis & Implementation**
-   - Run *Synthesis* and fix any errors.
-   - Run *Implementation*.
-   - Generate the Bitstream.
-
-4. **Program the Nexys A7**
-   - Open Hardware Manager.
-   - Connect to target, program device with the generated bitstream.
-
----
-
-## 6. On-Board Testing
+## 4. On-Board Testing
 
 1. After programming:
    - The display should show a rolling value from `000` upward, where:
