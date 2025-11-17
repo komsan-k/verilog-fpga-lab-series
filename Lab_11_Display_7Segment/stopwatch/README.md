@@ -250,18 +250,11 @@ endmodule
      - Middle digit    = centi-second tens
      - Left digit      = seconds
 
-2. Press and hold **reset (BTNC)**:
+2. Press and hold **reset**:
    - All digits should reset to `000`.
 
 3. Observe:
    - The counting rate is approximately **0.01 s per increment** of `cs_ones`.
    - After 100 centi-seconds, the **sec** digit increments by 1 and centi-seconds return to 00.
 
----
 
-## 7. Possible Extensions
-
-- Extend the seconds range to 0–59 (add minute counter).
-- Add **start/stop** button.
-- Add **lap** capture display.
-- Extend to a 4-digit (MM:SS) or 6-digit (HH:MM:SS) format.
